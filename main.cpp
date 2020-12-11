@@ -9,9 +9,9 @@ After the actual lottery draw the application tells how many numbers were correc
 Text based user interface is defined by the student.
 */
 /*
-1. Lotteries maker
-2. Players list
-3. Summary terminal
+1. Lotteries maker - finish
+2. Players list - finish
+3. Summary terminal - limited same with player list
 4. Winners and prize rules
 5. Lottery textbase graphic searching
 6. Clear all players
@@ -20,25 +20,37 @@ Text based user interface is defined by the student.
 #include <iostream>
 #include "lib/lottery.h"
 
-const char menu[] = "Choose your options below:\n1.Convert hexadecimal to decimal"
-                      "\n2.Convert binary to octal "
-                      "\n3.Convert binary to hexadecimal"
-                      "\n4.Convert hexadecimal to binary "
-                      "\n5.Convert Octal to binary"
+const char menu[] = "Choose your options below:\n1. Buy a lottery"
+                      "\n2. Show a list of players"
+                      "\n3. Convert binary to hexadecimal"
                       "\nYour option:";
 
 void showOptions(){
     char opt;
-    std::cout<<"Do you want to add a player ";
+    std::cout<<menu;
     std::cin>>opt;
-    do {
-        addNewPlayer();
-        std::cout<<"Do you want to add more player ";
-        std::cin>>opt;
-    } while (opt=='y'||opt=='Y');
-    std::cout<<"Now: "<< numberPlayers()<<std::endl;
-    showPlayersList();
+    
+    switch (opt)
+    {
+    case '1': 
+        do {
+            addNewPlayer();
+            std::cout<<"Do you want to buy more lottery (y/n): ";
+            std::cin>>opt;
+        } while (opt=='y'||opt=='Y');
+        std::cout<<"\n";
+        break;
+    case '2':
+        std::cout<<"\nNow: "<< numberPlayers()<<(numberPlayers()>=2?" players":" player")<<std::endl; 
+        showPlayersList();
+        std::cout<<"\n";
+        break;
 
+    default:
+        std::cout<<"\nError input\n";
+        break;
+    }
+    showOptions();
 }
 
 int main(){    

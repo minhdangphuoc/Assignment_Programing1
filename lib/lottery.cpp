@@ -33,68 +33,50 @@ int numberPlayers(){
 }
 
 void printLottery(int player){
-    std::cout<<raw_lottery_header;
-  //std::cout<<"//  NAME:0123456789  |00|00|00|00|00|00|00|  |00|00|00|   //";
-    std::cout<<"//                                                        //\n";
-}
+    
+    int s=0,t=0;
+    int number[7];
+    int bonus_number[3];
+    
+    std::cout<<player_list[player]<<"   ";
+        
+    for (int i=1;i<=39;i++){
+        for (int count = 1; count<=lottery[player][i]/10; count++){
+            bonus_number[t]=i;
+            t++;
+        } 
 
-void output_lottery(int number[7], int bonus_number[3]){
-    for (int i=1;i<=7;i++){
+        for (int count = 1; count<=lottery[player][i]%10; count++){
+            number[s]=i;
+            s++;
+        }
+         
+    }
+        
+    for (int i=0;i<7;i++){
         std::cout<<"|"<<number[i]<<"|";
     }
     
     std::cout<<" ";
     
-    for (int i=1;i<=3;i++){
+    for (int i=0;i<3;i++){
         std::cout<<"|"<<bonus_number[i]<<"|";
     }
+    
     std::cout<<"\n";
+
 }
+
+
 
 void showPlayersList(){
     //char opt;
     //std::cout<<"Do you want to watch the player list and their lottery number";
-
-    int head=0,s,t;
-    int number[7];
-    int bonus_number[3];
+    int head=0;
     while ( lottery[head][0]!=0) {
-
-        s=0;
-        t=0;
-        
-        std::cout<<player_list[head]<<"   ";
-        
-        for (int i=1;i<=39;i++){
-            while(lottery[head][i]>=10){
-                    lottery[head][i]-=10;
-                    bonus_number[t]=i;
-                    t++;
-            } 
-        
-            while (lottery[head][i]>0&&lottery[head][i]<=7){
-                    lottery[head][i]--;
-                    number[s]=i;
-                    s++;
-            }
-        }
-        
-        for (int i=0;i<7;i++){
-            std::cout<<"|"<<number[i]<<"|";
-        }
-        
-        std::cout<<" ";
-        
-        for (int i=0;i<3;i++){
-            std::cout<<"|"<<bonus_number[i]<<"|";
-        }
-        
-        std::cout<<"\n";
-        
+        printLottery(head);
         head++;   
     }
-
-   
         
 } 
 
@@ -125,11 +107,8 @@ void addNewPlayer(){
     getline(std::cin, player_list[newplayer]);
 
     make7luckynumber(newplayer);
-
+    printLottery(newplayer);
     //showPlayersList();
 }
 
-void clearAllPlayer(){
-
-}
 
